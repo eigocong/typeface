@@ -1,0 +1,350 @@
+body {
+	background-color: #f5f5f5;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+}
+
+#input-form {
+	position: fixed;
+	bottom: 20px;
+	width: 90%;
+	max-width: 600px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: white;
+	border-radius: 8px;
+	padding: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	gap: 1rem;
+}
+
+#name-input,
+#message-input {
+	width: 45%;
+	padding: 8px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+#send-button {
+	background-color: #4caf50;
+	color: white;
+	border: none;
+	padding: 8px 16px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+#send-button:hover {
+	background-color: #45a049;
+}
+
+.typeface {
+    position: absolute;
+    top: 30%;
+    width: 100%;
+    text-align: center;
+    font-size: 100px;
+    display: none;
+  }
+
+#chatroom {
+	width: 100%;
+	max-width: 400px;
+	margin: 70px auto 50px;
+	padding: 10px;
+	list-style-type: none;
+	background-color: white;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	max-height: 300px;
+	overflow-y: auto;
+    position:Fixed;
+    left:20px;
+    top:740px;
+}
+
+#chatroom li {
+	padding: 10px;
+	margin-bottom: 8px;
+	border-radius: 4px;
+	background-color: #f1f1f1;
+}
+
+#chatroom li {
+	background-color: #ffd2d2;
+}
+
+#chatroom li span {
+	font-weight: bold;
+	color: #00796b;
+}
+
+#chatroom li .message {
+	margin-top: 4px;
+	color: #333;
+}
+
+.dont-know-button {
+    background-color: #ff6f6f;
+	color: white;
+	border: none;
+	padding: 8px 16px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 14px;
+    position:fixed;
+    top:1085px;
+    left:1350px;
+}
+
+.dont-know-button:hover {
+	background-color: #ff2929;
+}
+
+
+
+@font-face {
+    font-family: "Frutiger";
+    src: url(./Frutiger.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Gotham";
+    src: url(./GothamMedium.ttf) format('woff');
+}
+
+@font-face {
+    font-family: "Gilroy";
+    src: url(./Gilroy-Medium.woff) format('woff');
+}
+
+@font-face {
+    font-family: "Univers";
+    src: url(./UniversRegular.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Rockwell";
+    src: url(./ROCK.TTF) format("truetype");
+}
+
+@font-face {
+    font-family: "Untitled";
+    src: url(./test-untitled-sans-medium.woff2) format('woff');
+}
+
+
+
+
+
+
+
+div{
+position: absolute;
+top: 35%;
+width: 100%;
+text-align: center;
+font-size: 150px;
+}
+
+
+
+.Didot{
+  font-family: "GFS Didot", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.Bodoni{
+    font-family: "Bodoni Moda", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+.Baskerville{
+    font-family: "Baskervville", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+.Garamond{
+    font-family: "EB Garamond", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .Times-New-Roman{
+    font-family:'Times New Roman', Times, serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .Din{
+    font-family: "din-condensed", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .Verdana{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .Gabriela-Stencil{
+  font-family: "Gabriela", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.Minion{
+    font-family: "minion-pro", serif;
+font-weight: 400;
+font-style: normal;
+  }
+
+  .Georgia{
+    font-family:Georgia, 'Times New Roman', Times, serif;
+font-weight: 400;
+font-style: normal;
+  }
+
+  .Helvetica{
+    font-family: "neue-haas-grotesk-display", sans-serif;
+font-weight: 600;
+font-style: normal;
+  }
+
+  .Futura{
+    font-family: "futura-pt", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .Franklin-Gothic{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .Avenir{
+    font-family: "Heebo", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .Montserrat{
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .Frutiger{
+    font-family: "Frutiger", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .News-Gothic{
+    font-family: "news-gothic-std", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .Gotham{
+    font-family:"Gotham";
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .Gilroy{
+    font-family:"Gilroy";
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .Univers{
+    font-family:"Univers";
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .Akzidenz-Grotesk{
+    font-family: "aktiv-grotesk", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .Gill{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .Rockwell{
+    font-family:"Rockwell";
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .OCR-A{
+    font-family: "ocr-a-std", monospace;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .Myriad{
+    font-family: "myriad-pro", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .Adobe-Caslon{
+    font-family: "adobe-caslon-pro", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .Inter{
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .Untitled{
+    font-family: "Untitled", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .Industry{
+    font-family: "industry", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .Impact{
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .Arial{
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
