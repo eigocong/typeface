@@ -15,6 +15,8 @@ const ref = database.ref("chatroom");
 const dontKnowRef = database.ref("dontKnowVotes");
 const userCountRef = database.ref("userCount");
 const currentDivRef = database.ref("currentDivIndex");
+const presenceRef = database.ref(".info/connected");
+const onlineUsersRef = database.ref("onlineUsers");
 
 // Get references to the DOM elements
 const nameInput = document.getElementById("name-input");
@@ -23,10 +25,15 @@ const sendButton = document.getElementById("send-button");
 const dontKnowButton = document.createElement("button");
 dontKnowButton.textContent = "I don't know";
 dontKnowButton.className = "dont-know-button";
-
 document.body.appendChild(dontKnowButton);
 const chatroom = document.getElementById("chatroom");
 const body = document.body;
+
+// Create a div to display the number of online users
+const onlineUsersDiv = document.createElement("div");
+onlineUsersDiv.style.fontSize = "20px";
+onlineUsersDiv.id = "online-users-count";
+document.body.insertBefore(onlineUsersDiv, chatroom);
 
 // Array to store div ids from 1 to 31
 const divIds = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
@@ -117,9 +124,23 @@ ref.on("value", (snapshot) => {
     chatroom.scrollTop = chatroom.scrollHeight;
 });
 
-// Firebase listener to keep track of user count
-userCountRef.on("value", (snapshot) => {
-    userCount = snapshot.val() || 0;
+// Track if the user is connected
+presenceRef.on("value", (snapshot) => {
+    if (snapshot.val()) {
+        // If we are connected, add this device to the list of online users
+        const userRef = onlineUsersRef.push(true);
+        // Remove the user from the list when disconnected
+        userRef.onDisconnect().remove();
+    }
+});
+
+// Firebase listener to keep track of how many users are online
+onlineUsersRef.on("value", (snapshot) => {
+    userCount = snapshot.numChildren();
+    userCountRef.set(userCount); // Update the user count in the database
+
+    // Update the online users count div
+    onlineUsersDiv.textContent = `Online Users: ${userCount}`;
 });
 
 // Firebase listener for "I don't know" votes
