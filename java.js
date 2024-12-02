@@ -157,5 +157,14 @@ dontKnowRef.on("value", (snapshot) => {
                 </li>`;
             chatroom.scrollTop = chatroom.scrollHeight;
         }
+        // Reset "I don't know" votes
+        dontKnowVotes = 0;
+        dontKnowRef.set(dontKnowVotes);
     }
-});
+})
+
+dontKnowButton.onclick = function () {
+    dontKnowVotes++;
+    dontKnowRef.set(dontKnowVotes);
+    alert("Your vote has been received!");
+};
