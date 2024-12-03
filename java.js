@@ -64,12 +64,15 @@ sendButton.onclick = function (event) {
 
 
     const text = { name: nameInput.value.trim(), message: messageInput.value.trim() };
+    const messageInnn = messageInput.value.replaceAll(' ', '-').toUpperCase();
 
 
     if (text.name && text.message) {
 
         const currentDiv = document.getElementById(divIds[currentIndex]);
-        const isCorrect = currentDiv && messageInput.value.trim() === currentDiv.className;
+        console.log(messageInnn)
+        const isCorrect = currentDiv && messageInnn.trim() === currentDiv.className;
+
 
 
         ref.push({ ...text, isCorrect });
@@ -140,7 +143,7 @@ onlineUsersRef.on("value", (snapshot) => {
     userCountRef.set(userCount); 
 
 
-    
+
     onlineUsersDiv.textContent = `Online Users: ${userCount}`;
 });
 
@@ -167,5 +170,12 @@ dontKnowRef.on("value", (snapshot) => {
 dontKnowButton.onclick = function () {
     dontKnowVotes++;
     dontKnowRef.set(dontKnowVotes);
-    alert("Your vote has been received!");
 };
+
+
+
+
+
+
+
+
