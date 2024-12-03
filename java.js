@@ -18,7 +18,7 @@ const currentDivRef = database.ref("currentDivIndex");
 const presenceRef = database.ref(".info/connected");
 const onlineUsersRef = database.ref("onlineUsers");
 
-// Get references to the DOM elements
+
 const nameInput = document.getElementById("name-input");
 const messageInput = document.getElementById("message-input");
 const sendButton = document.getElementById("send-button");
@@ -29,19 +29,19 @@ document.body.appendChild(dontKnowButton);
 const chatroom = document.getElementById("chatroom");
 const body = document.body;
 
-// Create a div to display the number of online users
+
 const onlineUsersDiv = document.createElement("div");
 onlineUsersDiv.style.fontSize = "20px";
 onlineUsersDiv.id = "online-users-count";
 document.body.insertBefore(onlineUsersDiv, chatroom);
 
-// Array to store div ids from 1 to 31
+
 const divIds = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
 let currentIndex = 0;
 let userCount = 0;
 let dontKnowVotes = 0;
 
-// Function to show the current div and hide all others
+
 function showCurrentDiv() {
     divIds.forEach((id, index) => {
         const div = document.getElementById(id);
@@ -51,39 +51,39 @@ function showCurrentDiv() {
     });
 }
 
-// Firebase listener for the current div index
+
 currentDivRef.on("value", (snapshot) => {
     currentIndex = snapshot.val() || 0;
     showCurrentDiv();
 });
 
-// Unified event listener for the send button
+
 sendButton.onclick = function (event) {
-    // Prevent the default form submission
+
     event.preventDefault();
 
-    // Get the values from user input
+
     const text = { name: nameInput.value.trim(), message: messageInput.value.trim() };
 
-    // Ensure name and message are not empty
+
     if (text.name && text.message) {
-        // Check if the message matches the class of the currently showing div
+
         const currentDiv = document.getElementById(divIds[currentIndex]);
         const isCorrect = currentDiv && messageInput.value.trim() === currentDiv.className;
 
-        // Push the data to firebase with an indication of correctness
+
         ref.push({ ...text, isCorrect });
 
-        // If the answer is correct, show the next div and change body background color temporarily
+
         if (isCorrect) {
-            // Clear the message
+
             messageInput.value = "";
 
-            // Update the current div index in Firebase
+
             currentIndex = (currentIndex + 1) % divIds.length;
             currentDivRef.set(currentIndex);
 
-            // Change body background color with easing effect for 1 second
+
             body.style.transition = "background-color 1s ease";
             body.style.backgroundColor = "#00ff99";
             setTimeout(() => {
@@ -93,21 +93,21 @@ sendButton.onclick = function (event) {
     }
 };
 
-// Event listener for the "I don't know" button
+
 dontKnowButton.onclick = function () {
     dontKnowVotes++;
     dontKnowRef.set(dontKnowVotes);
 };
 
-// Firebase listener to update the chatroom
+
 ref.on("value", (snapshot) => {
-    // Get the data from firebase
+
     const data = snapshot.val();
 
-    // Clear out the old chatroom HTML
+
     chatroom.innerHTML = "";
 
-    // Use a for ... in loop to populate the chatroom
+
     for (const key in data) {
         if (data.hasOwnProperty(key)) {
             const messageData = data[key];
@@ -120,34 +120,35 @@ ref.on("value", (snapshot) => {
         }
     }
 
-    // Scroll to the bottom of the chatroom
+
     chatroom.scrollTop = chatroom.scrollHeight;
 });
 
-// Track if the user is connected
+
 presenceRef.on("value", (snapshot) => {
     if (snapshot.val()) {
-        // If we are connected, add this device to the list of online users
+
         const userRef = onlineUsersRef.push(true);
-        // Remove the user from the list when disconnected
+
         userRef.onDisconnect().remove();
     }
 });
 
-// Firebase listener to keep track of how many users are online
+
 onlineUsersRef.on("value", (snapshot) => {
     userCount = snapshot.numChildren();
-    userCountRef.set(userCount); // Update the user count in the database
+    userCountRef.set(userCount); 
 
-    // Update the online users count div
+
+    
     onlineUsersDiv.textContent = `Online Users: ${userCount}`;
 });
 
-// Firebase listener for "I don't know" votes
+
 dontKnowRef.on("value", (snapshot) => {
     dontKnowVotes = snapshot.val() || 0;
     if (dontKnowVotes > userCount / 2) {
-        // Reveal the correct answer in the chatroom
+
         const currentDiv = document.getElementById(divIds[currentIndex]);
         if (currentDiv) {
             chatroom.innerHTML += `
@@ -157,7 +158,7 @@ dontKnowRef.on("value", (snapshot) => {
                 </li>`;
             chatroom.scrollTop = chatroom.scrollHeight;
         }
-        // Reset "I don't know" votes
+
         dontKnowVotes = 0;
         dontKnowRef.set(dontKnowVotes);
     }
