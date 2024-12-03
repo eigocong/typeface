@@ -66,7 +66,7 @@ body {
 	max-height: 300px;
     position:Fixed;
     left:20px;
-    top:740px;
+    bottom:20px;
 }
 
 #chatroom li {
@@ -99,7 +99,7 @@ body {
 	cursor: pointer;
 	font-size: 14px;
     position:fixed;
-    top:1085px;
+    bottom:20px;
     left:1350px;
 }
 
