@@ -124,7 +124,9 @@ ref.on("value", (snapshot) => {
     }
 
 
-    chatroom.scrollTop = chatroom.scrollHeight;
+    setTimeout(() => {
+        chatroom.scrollTop = chatroom.scrollHeight;
+    }, 100);
 });
 
 
