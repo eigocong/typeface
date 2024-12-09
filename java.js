@@ -31,7 +31,7 @@ const body = document.body;
 
 
 const onlineUsersDiv = document.createElement("div");
-onlineUsersDiv.style.fontSize = "20px";
+onlineUsersDiv.style.fontSize = "15px";
 onlineUsersDiv.id = "online-users-count";
 document.body.insertBefore(onlineUsersDiv, chatroom);
 
@@ -40,6 +40,15 @@ const divIds = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
 let currentIndex = 0;
 let userCount = 0;
 let dontKnowVotes = 0;
+
+divIds.forEach((id) => {
+    const div = document.getElementById(id);
+    if (div) {
+        div.addEventListener("input", () => {
+            console.log(`Div ${id} content changed to: ${div.textContent}`);
+        });
+    }
+});
 
 
 function showCurrentDiv() {
@@ -59,36 +68,27 @@ currentDivRef.on("value", (snapshot) => {
 
 
 sendButton.onclick = function (event) {
-
     event.preventDefault();
-
 
     const text = { name: nameInput.value.trim(), message: messageInput.value.trim() };
     const messageInnn = messageInput.value.replaceAll(' ', '-').toUpperCase();
 
-
     if (text.name && text.message) {
-
         const currentDiv = document.getElementById(divIds[currentIndex]);
-        console.log(messageInnn)
         const isCorrect = currentDiv && messageInnn.trim() === currentDiv.className;
-
-
 
         ref.push({ ...text, isCorrect });
 
-
         if (isCorrect) {
-
             messageInput.value = "";
-
-
             currentIndex = (currentIndex + 1) % divIds.length;
             currentDivRef.set(currentIndex);
 
-
+            // Apply background color change
             body.style.transition = "background-color 1s ease";
             body.style.backgroundColor = "#00ff99";
+
+            // Clear background color after 1 second
             setTimeout(() => {
                 body.style.backgroundColor = "";
             }, 1000);
@@ -97,31 +97,40 @@ sendButton.onclick = function (event) {
 };
 
 
+
 dontKnowButton.onclick = function () {
     dontKnowVotes++;
     dontKnowRef.set(dontKnowVotes);
 };
+
+document.addEventListener("DOMContentLoaded", function() {
+    const editableDivs = document.querySelectorAll('[contenteditable="true"]');
+    editableDivs.forEach(div => {
+        const caretSpan = document.createElement('span');
+        caretSpan.className = 'caret';
+        div.insertBefore(caretSpan, div.firstChild);
+    });
+});
 
 
 ref.on("value", (snapshot) => {
 
     const data = snapshot.val();
 
-
     chatroom.innerHTML = "";
-
 
     for (const key in data) {
         if (data.hasOwnProperty(key)) {
             const messageData = data[key];
-            const backgroundColor = messageData.isCorrect ? "#00ff99" : "#ffd2d2";
+            const liBackgroundColor = messageData.isCorrect ? "#00ff99" : "#ffd2d2";
             chatroom.innerHTML += `
-                <li style="background-color: ${backgroundColor};">
-                <strong>${messageData.name}</strong>:
-                ${messageData.message}
+                <li style="position: relative; background-color: ${liBackgroundColor}; padding: 10px; margin-bottom: 8px;">
+                    <strong>${messageData.name}</strong>: ${messageData.message}
                 </li>`;
         }
     }
+
+    
 
 
     setTimeout(() => {
@@ -173,6 +182,7 @@ dontKnowButton.onclick = function () {
     dontKnowVotes++;
     dontKnowRef.set(dontKnowVotes);
 };
+
 
 
 

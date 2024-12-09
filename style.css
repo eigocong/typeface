@@ -1,5 +1,5 @@
 body {
-	background-color: #f5f5f5;
+	background-color: #ffffff;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -15,20 +15,50 @@ body {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background-color: white;
-	border-radius: 8px;
+  border:solid;
 	padding: 10px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	gap: 1rem;
 }
 
-#name-input,
-#message-input {
-	width: 45%;
-	padding: 8px;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	font-size: 14px;
+.tite {
+  position: fixed;
+  top: auto;
+  width: auto;
+  left: 25px;
+  top: 30px;
+  font-family: "Inter";
+  font-size: 15px;
+  border:solid;
+  padding:5px;
+
+}
+
+.question {
+  position: fixed;
+  top: auto;
+  width: auto;
+  right: 25px;
+  top: 30px;
+  font-family: "Inter";
+  font-size: 25px;
+  border:solid;
+  padding-left:8px;
+  padding-right:8px;
+}
+
+#name-input {
+  width: 15%;
+  padding: 8px;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  font-size: 14px;
+}
+#message-input{
+  width: 64%;
+  padding: 8px;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
 #send-button {
@@ -55,35 +85,31 @@ body {
   }
 
 #chatroom {
-	width: 100%;
-	max-width: 400px;
-	margin: 70px auto 50px;
-	padding: 10px;
-	list-style-type: none;
-	background-color: white;
-	border-radius: 8px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	max-height: 300px;
-  overflow-y:auto;
-    position:Fixed;
-    left:20px;
-    bottom:20px;
+  width: 80;
+  max-width: 400px;
+  padding: 10px;
+  list-style-type: none;
+  border: solid;
+  max-height: 200px;
+  overflow-y: auto;
+  position: Fixed;
+  left: 25px;
+  bottom: 10px;
 }
 
 #chatroom li {
 	padding: 10px;
 	margin-bottom: 8px;
-	border-radius: 4px;
-	background-color: #f1f1f1;
+  border:solid;
 }
 
 #chatroom li {
-	background-color: #ffd2d2;
+  border:solid;
 }
 
 #chatroom li span {
 	font-weight: bold;
-	color: #00796b;
+	color: #000000;
 }
 
 #chatroom li .message {
@@ -99,13 +125,47 @@ body {
 	border-radius: 4px;
 	cursor: pointer;
 	font-size: 14px;
-    position:fixed;
-    bottom:20px;
-    left:1350px;
+  position:fixed;
+  bottom:32px;
+  right:590px;
+}
+
+@media only screen and (max-width: 2000px) {
+  .dont-know-button {right:200px;}
 }
 
 .dont-know-button:hover {
 	background-color: #ff2929;
+}
+
+[contenteditable]:focus {
+  outline: none; /* Removes the blue outline */
+}
+
+span {
+  display: inline-block;
+  width: 2px;
+  height: 1.3em;
+  background: black; /* Caret color */
+  margin-right: 5px; /* Spacing between caret and text */
+  animation: blink 1s step-start infinite;
+  vertical-align: top;
+}
+
+@keyframes blink {
+  50% {
+      opacity: 0;
+  }
+}
+
+
+.blinking-caret {
+  position: absolute;
+  left: -2px;
+  top: auto;
+  width: 3px;
+  height: 20px;
+  background-color: black;
 }
 
 
@@ -156,10 +216,14 @@ font-size: 150px;
 }
 
 #online-users-count{
-    position:fixed;
-    top:20px;
-    left:0px;
-    font-family:"Inter";
+  position: fixed;
+  top: auto;
+  width: auto;
+  left: 25px;
+  bottom: 260px;
+  font-family: "Inter";
+  border:solid;
+  padding:5px;
 }
 
 
