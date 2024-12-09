@@ -20,6 +20,10 @@ body {
 	gap: 1rem;
 }
 
+em{
+  font-style:normal;
+}
+
 .tite {
   position: fixed;
   top: auto;
@@ -46,18 +50,68 @@ body {
   padding-right:8px;
 }
 
+.text-list {
+  position: fixed;
+  top: auto;
+  width: auto;
+  right: 25px;
+  top: 80px;
+  font-family: "Inter";
+  font-size: 25px;
+  border:solid;
+  padding-left:6px;
+  padding-right:8px;
+}
+
+.questionres{
+  display:none;
+  top: auto;
+  width: 450px;
+  right: 70px;
+  top: 30px;
+  font-family: "Inter";
+  font-size: 15px;
+  border:solid;
+  text-align:left;
+  padding:8px;
+
+}
+
+.questionress{
+  display:none;
+  top: auto;
+  width: 100px;
+  right: 70px;
+  top: 30px;
+  font-family: "Inter";
+  font-size: 15px;
+  border:solid;
+  text-align:left;
+  padding:8px;
+
+}
+
+.text-list:hover + .questionress{
+  display:block;
+}
+
+
+.question:hover + .questionres{
+  display:block;
+}
+
 #name-input {
   width: 15%;
   padding: 8px;
   border: 1px solid #000000;
-  border-radius: 4px;
+
   font-size: 14px;
 }
 #message-input{
   width: 64%;
   padding: 8px;
   border: 1px solid #000000;
-  border-radius: 4px;
+
   font-size: 14px;
 }
 
@@ -66,7 +120,7 @@ body {
 	color: white;
 	border: none;
 	padding: 8px 16px;
-	border-radius: 4px;
+
 	cursor: pointer;
 	font-size: 14px;
 }
@@ -122,7 +176,7 @@ body {
 	color: white;
 	border: none;
 	padding: 8px 16px;
-	border-radius: 4px;
+
 	cursor: pointer;
 	font-size: 14px;
   position:fixed;
@@ -130,13 +184,48 @@ body {
   right:590px;
 }
 
-@media only screen and (max-width: 2000px) {
-  .dont-know-button {right:200px;}
+.area{
+  width: 20px;
+  height: 35px;
+  position: fixed;
+  bottom: 30px;
+  right: 480px;
+  top: auto;
+  font-size: 30px;
+  font-family: "Inter";
+  color: #000000;
+  border: solid black;
 }
+
+.pers{
+  display:none;
+  top:auto;
+  width: 200px;
+  position:fixed;
+  bottom:102px;
+  right:535px;
+  font-family: "Inter";
+  font-size: 15px;
+  border:solid;
+  text-align:center;
+  padding:8px;
+}
+
+.area:hover + .pers{
+  display:block; 
+}
+
 
 .dont-know-button:hover {
 	background-color: #ff2929;
+  
 }
+
+button:hover + .pers{
+	display:block;
+}
+
+
 
 [contenteditable]:focus {
   outline: none; /* Removes the blue outline */
@@ -146,10 +235,11 @@ span {
   display: inline-block;
   width: 2px;
   height: 1.3em;
-  background: black; /* Caret color */
+  background-color: black; /* Caret color */
   margin-right: 5px; /* Spacing between caret and text */
   animation: blink 1s step-start infinite;
   vertical-align: top;
+  pointer-events:none;
 }
 
 @keyframes blink {
@@ -166,6 +256,7 @@ span {
   width: 3px;
   height: 20px;
   background-color: black;
+  pointer-events:none;
 }
 
 
@@ -208,9 +299,9 @@ span {
 
 
 div{
-position: absolute;
+position: fixed;
 top: 35%;
-width: 100%;
+width: 80%;
 text-align: center;
 font-size: 150px;
 }
@@ -226,8 +317,101 @@ font-size: 150px;
   padding:5px;
 }
 
+#dont-know-count{
+  width: 20px;
+  height: 35px;
+  position: fixed;
+  bottom: 30px;
+  right: 550px;
+  top: auto;
+  font-size: 30px;
+  font-family: "Inter";
+  font-weight: 700;
+  color: #db0000;
+}
 
 
+@media only screen and (max-width: 2000px) {
+  .dont-know-button {right:200px;}
+  #dont-know-count {right:170px;}
+  .area {right:110px;}
+
+}
+
+@media only screen and (max-width: 500px) {
+  #online-users-count {bottom:400px;}
+  #chatroom {bottom:150px;}
+  #input-form {bottom:90px;}
+  .dont-know-button {right:220px;}
+  #dont-know-count {right:180px;}
+  .area {right:110px;}
+  div {top:15%;}
+  div {font-size:80px;}
+}
+
+@keyframes rainbow {
+  0% { color: red; }
+  16% { color: orange; }
+  33% { color: yellow; }
+  50% { color: green; }
+  66% { color: blue; }
+  83% { color: indigo; }
+  100% { color: violet; }
+}
+
+em.rainbow {
+  animation: rainbow 2s linear infinite; /* Cycle colors every 2 seconds */
+  font-weight: bold;
+  width:auto;
+  height:auto;
+  background-color:white;
+  
+}
+
+
+#leaderboard ol {
+  list-style: none; /* Removes bullets or numbering */
+  padding: 0;
+  margin: 0;
+}
+
+
+#animationSelect {
+  position: fixed;
+  top: auto;
+  width: auto;
+  right: 25px;
+  top: 150px;
+  font-family: "Inter";
+  font-size: 25px;
+  border:solid;
+  padding-left:6px;
+  padding-right:8px;
+
+}
+
+#leaderboard {
+  position: fixed;
+  top: auto;
+  bottom: 30px;
+  right: 25px;
+  font-family: "Inter";
+  font-size: 15px;
+  border: solid;
+  padding: 10px;
+  background-color: #ffffff;
+  max-width: 170px;
+  flex-direction: column-reverse;
+}
+
+#refresh-leaderboard-button {
+ display:none;
+  
+}
+
+#refresh-leaderboard:hover {
+  background-color: #45a049;
+}
 
 
 

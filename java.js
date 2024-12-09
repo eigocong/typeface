@@ -17,6 +17,7 @@ const userCountRef = database.ref("userCount");
 const currentDivRef = database.ref("currentDivIndex");
 const presenceRef = database.ref(".info/connected");
 const onlineUsersRef = database.ref("onlineUsers");
+const leaderboardRef = database.ref("leaderboard");
 
 
 const nameInput = document.getElementById("name-input");
@@ -84,14 +85,17 @@ sendButton.onclick = function (event) {
             currentIndex = (currentIndex + 1) % divIds.length;
             currentDivRef.set(currentIndex);
 
+            // Update leaderboard
+            leaderboardRef.child(text.name).transaction((score) => (score || 0) + 1);
+
             // Apply background color change
-            body.style.transition = "background-color 1s ease";
+            body.style.transition = "background-color 0.5s ease";
             body.style.backgroundColor = "#00ff99";
 
             // Clear background color after 1 second
             setTimeout(() => {
                 body.style.backgroundColor = "";
-            }, 1000);
+            }, 500);
         }
     }
 };
@@ -182,6 +186,96 @@ dontKnowButton.onclick = function () {
     dontKnowVotes++;
     dontKnowRef.set(dontKnowVotes);
 };
+
+
+const dontKnowCountDiv = document.getElementById("dont-know-count");
+
+// Update the display of "I don't know" button clicks and online user count
+function updateCounts() {
+    dontKnowCountDiv.textContent = `${dontKnowVotes}/${userCount}`;
+}
+
+// Update counts whenever there's a change in don't know votes or online users
+dontKnowRef.on("value", (snapshot) => {
+    dontKnowVotes = snapshot.val() || 0;
+    updateCounts();
+});
+
+onlineUsersRef.on("value", (snapshot) => {
+    userCount = snapshot.numChildren();
+    updateCounts();
+});
+
+// Initial update
+updateCounts();
+
+
+function updateLeaderboard() {
+    leaderboardRef.orderByValue().limitToLast(5).on("value", (snapshot) => {
+        const data = snapshot.val();
+        const leaderboardDiv = document.getElementById("leaderboard");
+
+        // Clear the leaderboard
+        leaderboardDiv.innerHTML = "<h3>Leaderboard</h3><ol></ol>";
+        const leaderboardList = leaderboardDiv.querySelector("ol");
+
+        // Sort and display the top 5 players
+        const entries = Object.entries(data || {}).sort((a, b) => b[1] - a[1]); // Sort by score in descending order
+        entries.forEach(([name, score], index) => {
+            const listItem = document.createElement("li");
+            const textSpan = document.createElement("em");
+
+            // Apply rainbow animation to the top user
+            if (index === 0) {
+                textSpan.classList.add("rainbow");
+            }
+
+            textSpan.textContent = `${name}: ${score}`;
+            listItem.appendChild(textSpan);
+            leaderboardList.appendChild(listItem);
+        });
+
+        // Handle case where leaderboard is empty
+        if (entries.length === 0) {
+            const emptyMessage = document.createElement("li");
+            emptyMessage.textContent = "No data available";
+            leaderboardList.appendChild(emptyMessage);
+        }
+    });
+}
+
+
+// Initialize real-time leaderboard updates
+updateLeaderboard();
+
+
+function refreshLeaderboard() {
+    const leaderboardDiv = document.getElementById("leaderboard");
+
+    // Clear the leaderboard visually
+    leaderboardDiv.innerHTML = "<h3>Leaderboard</h3><p>Clearing leaderboard...</p>";
+
+    // Delete leaderboard data from Firebase
+    leaderboardRef.set(null).then(() => {
+        console.log("Leaderboard data cleared.");
+
+        // Show empty leaderboard message
+        leaderboardDiv.innerHTML = "<h3>Leaderboard</h3><ol><li>No data available</li></ol>";
+
+        // Reinitialize the leaderboard listener
+        updateLeaderboard();
+    }).catch((error) => {
+        console.error("Error clearing leaderboard data:", error);
+        leaderboardDiv.innerHTML = "<h3>Leaderboard</h3><p>Error clearing data.</p>";
+    });
+}
+
+
+// Add event listener to refresh button for clearing leaderboard
+document
+    .getElementById("refresh-leaderboard-button")
+    .addEventListener("click", refreshLeaderboard);
+
 
 
 
